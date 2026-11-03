@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 
+from settings import DEFAULT_MAIL_CONFIG_RELOAD_INTERVAL_SECONDS
+
 
 def parse_args():
     """Doc tham so dong lenh khi chay script."""
@@ -15,7 +17,12 @@ def parse_args():
     parser.add_argument(
         "--loop",
         action="store_true",
-        help="Chay lien tuc, moi chu ky doc lai DB va kiem tra nguong.",
+        help="Chay lien tuc. Day la mac dinh khi khong truyen --once.",
+    )
+    parser.add_argument(
+        "--once",
+        action="store_true",
+        help="Chi kiem tra mot lan roi thoat.",
     )
     parser.add_argument(
         "--interval",
@@ -31,7 +38,16 @@ def parse_args():
     parser.add_argument(
         "--max-cycles",
         type=int,
-        help="So chu ky toi da khi chay --loop, dung de test. Bo trong de chay lien tuc.",
+        help="So chu ky toi da khi chay loop, dung de test. Bo trong de chay lien tuc.",
+    )
+    parser.add_argument(
+        "--config-reload-interval",
+        type=float,
+        default=DEFAULT_MAIL_CONFIG_RELOAD_INTERVAL_SECONDS,
+        help=(
+            "So giay giua cac lan doc lai tat ca cau hinh mail trong DB. "
+            f"Mac dinh {DEFAULT_MAIL_CONFIG_RELOAD_INTERVAL_SECONDS}s (60 phut)."
+        ),
     )
     parser.add_argument(
         "--verbose-json",

@@ -10,6 +10,9 @@ BASE_DIR = Path(__file__).resolve().parent
 # File .env nam cung thu muc voi send_mail.py, dung de luu thong tin ket noi DB.
 ENV_PATH = BASE_DIR / ".env"
 
+# Sau 60 phut doc lai toan bo cau hinh mail/sensor mot lan.
+DEFAULT_MAIL_CONFIG_RELOAD_INTERVAL_SECONDS = 60 * 60
+
 
 def load_env(path: Path = ENV_PATH) -> None:
     """Doc file .env va dua cac bien cau hinh vao os.environ."""

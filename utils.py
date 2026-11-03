@@ -1,6 +1,34 @@
 from __future__ import annotations
 
 
+def normalize_id(value) -> str:
+    """Chuan hoa UUID/id ve dang char(32) trong database."""
+
+    if value in (None, ""):
+        return ""
+
+    return str(value).strip().replace("-", "").lower()
+
+
+def normalize_ids(values) -> list[str]:
+    """Chuan hoa mot id hoac danh sach id ve list char(32)."""
+
+    if isinstance(values, list):
+        normalized_ids = []
+        for value in values:
+            normalized_id = normalize_id(value)
+            if normalized_id:
+                normalized_ids.append(normalized_id)
+
+        return normalized_ids
+
+    if isinstance(values, str):
+        return [normalize_id(value) for value in values.split(",") if normalize_id(value)]
+
+    normalized_id = normalize_id(values)
+    return [normalized_id] if normalized_id else []
+
+
 def normalize_receiver_emails(receiver_emails) -> list[str]:
     """Chuan hoa danh sach email nhan thanh list[str]."""
 
